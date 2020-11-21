@@ -317,6 +317,18 @@ napi_value sn_crypto_sign_seed_keypair(napi_env env, napi_callback_info info) {
   SN_RETURN(crypto_sign_seed_keypair(pk_data, sk_data, seed_data), "keypair generation failed")
 }
 
+napi_value sn_crypto_sign_ed25519_sk_to_seed(napi_env env, napi_callback_info info) {
+  SN_ARGV(2, crypto_sign_ed25519_sk_to_seed)
+
+  SN_ARGV_TYPEDARRAY(seed, 0)
+  SN_ARGV_TYPEDARRAY(sk, 1)
+
+  SN_ASSERT_LENGTH(seed_size, crypto_sign_SEEDBYTES, "sd")
+  SN_ASSERT_LENGTH(sk_size, crypto_sign_SECRETKEYBYTES, "sk")
+
+  SN_RETURN(crypto_sign_ed25519_sk_to_seed(seed_data, sk_data), "failed to extract seed from secret key")
+}
+
 napi_value sn_crypto_sign(napi_env env, napi_callback_info info) {
   SN_ARGV(3, crypto_sign)
 
@@ -2861,6 +2873,7 @@ static napi_value create_sodium_native(napi_env env) {
   SN_EXPORT_FUNCTION(sodium_unpad, sn_sodium_unpad)
   SN_EXPORT_FUNCTION(crypto_sign_keypair, sn_crypto_sign_keypair)
   SN_EXPORT_FUNCTION(crypto_sign_seed_keypair, sn_crypto_sign_seed_keypair)
+  SN_EXPORT_FUNCTION(crypto_sign_ed25519_sk_to_seed, sn_crypto_sign_ed25519_sk_to_seed)
   SN_EXPORT_FUNCTION(crypto_sign, sn_crypto_sign)
   SN_EXPORT_FUNCTION(crypto_sign_open, sn_crypto_sign_open)
   SN_EXPORT_FUNCTION(crypto_sign_detached, sn_crypto_sign_detached)
