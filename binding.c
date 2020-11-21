@@ -323,7 +323,7 @@ napi_value sn_crypto_sign_ed25519_sk_to_seed(napi_env env, napi_callback_info in
   SN_ARGV_TYPEDARRAY(seed, 0)
   SN_ARGV_TYPEDARRAY(sk, 1)
 
-  SN_ASSERT_LENGTH(seed_size, crypto_sign_SEEDBYTES, "sd")
+  SN_ASSERT_LENGTH(seed_size, crypto_sign_SEEDBYTES, "seed")
   SN_ASSERT_LENGTH(sk_size, crypto_sign_SECRETKEYBYTES, "sk")
 
   SN_RETURN(crypto_sign_ed25519_sk_to_seed(seed_data, sk_data), "failed to extract seed from secret key")
